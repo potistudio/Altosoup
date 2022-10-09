@@ -1,2 +1,10 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Ignore Image Files
+*.jpg	-text
+*.png	-text
+
+#Ignore Audio Files
+*.mp3	-text
+*.wav	-text
