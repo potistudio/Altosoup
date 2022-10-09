@@ -1,0 +1,25 @@
+{
+  "name": "altosoup",
+  "version": "1.0.0",
+  "description": "A Music Player Made with Electron",
+  "main": "./src/main.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/potistudio/Altosoup.git"
+  },
+  "keywords": [
+    "electron"
+  ],
+  "author": "POTI Studio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/potistudio/Altosoup/issues"
+  },
+  "homepage": "https://github.com/potistudio/Altosoup#readme"
+}
