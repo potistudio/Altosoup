@@ -1,0 +1,109 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Zen Kaku Gothic New", sans-serif;
+}
+
+
+.Window-Frame {
+	-webkit-app-region: drag;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 36px;
+	border-radius: 4px 4px 0 0;
+	border: solid #CCCCCC;
+	border-width: 1px 1px 0 1px;
+	background-color: #EEEEEE;
+	overflow: hidden;
+}
+
+.Window-Frame::after {
+	content: "";
+	position: absolute;
+	bottom: 1px;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	background-color: #CCCCCC;
+}
+
+
+.Window-Frame > span {
+	position: absolute;
+	top: 6px;
+	left: 0;
+	width: 100%;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+}
+
+
+.Window-Frame .Minimize-Button {
+	-webkit-app-region: no-drag;
+	position: absolute;
+	top: 10px;
+	right: 42px;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	transition: all 0.4s 0s ease;
+	cursor: pointer;
+}
+
+.Window-Frame .Minimize-Button:hover {
+	background-color: #DDDDDD;
+}
+
+.Window-Frame .Minimize-Button img {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 8px;
+	height: 8px;
+	filter: brightness(20%);
+}
+
+
+.Window-Frame .Close-Button {
+	-webkit-app-region: no-drag;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background-color: #EE6666;
+	transition: all 0.4s 0s ease;
+	cursor: pointer;
+}
+
+.Window-Frame .Close-Button:hover {
+	box-shadow: 0 0 10px #EE6666;
+}
+
+.Window-Frame .Close-Button img {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 8px;
+	height: 8px;
+	filter: brightness(20%);
+}
+
+
+.Window-Content {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: calc(100% - 36px);
+	border-radius: 0 0 4px 4px;
+	border: solid #CCCCCC;
+	border-width: 0 1px 1px 1px;
+	background-color: #EEEEEE;
+	overflow: hidden;
+}
