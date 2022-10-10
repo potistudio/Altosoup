@@ -5,6 +5,13 @@
 	font-family: "Zen Kaku Gothic New", sans-serif;
 }
 
+:root {
+	--white: #FCFCFC;
+	--black: #222222;
+	--primary: #7476FB;
+	--secondary: #48E4DA;
+}
+
 
 .Window-Frame {
 	-webkit-app-region: drag;
@@ -16,7 +23,7 @@
 	border-radius: 4px 4px 0 0;
 	border: solid #CCCCCC;
 	border-width: 1px 1px 0 1px;
-	background-color: #EEEEEE;
+	background-color: #FCFCFC;
 	overflow: hidden;
 }
 
@@ -27,7 +34,7 @@
 	left: 0;
 	width: 100%;
 	height: 1px;
-	background-color: #CCCCCC;
+	background-color: #7476FB;
 }
 
 
@@ -91,7 +98,7 @@
 	left: 4px;
 	width: 8px;
 	height: 8px;
-	filter: brightness(20%);
+	filter: brightness(10%);
 }
 
 
@@ -104,6 +111,52 @@
 	border-radius: 0 0 4px 4px;
 	border: solid #CCCCCC;
 	border-width: 0 1px 1px 1px;
-	background-color: #EEEEEE;
+	background-color: #FCFCFC;
 	overflow: hidden;
+}
+
+
+.Loading-Music {
+	position: absolute;
+	top: 20px;
+	left: calc(50% - 100px);
+	width: 200px;
+	height: 40px;
+	border-radius: 20px;
+	background-color: var(--white);
+	box-shadow: 0 0 16px #CCCCCC;
+}
+
+.Loading-Music::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+	background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
+	z-index: 1;
+}
+
+.Loading-Music::after {
+	content: "";
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: calc(100% - 4px);
+	height: calc(100% - 4px);
+	border-radius: inherit;
+	background-color: var(--white);
+	z-index: 2;
+}
+
+.Loading-Music span {
+	position: absolute;
+	top: 6px;
+	left: 44px;
+	z-index: 3;
+	font-size: 16px;
+	font-weight: bold;
+	color: #222222;
 }

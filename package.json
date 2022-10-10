@@ -27,6 +27,7 @@
     "electron": "^21.1.0"
   },
   "dependencies": {
+    "animejs": "^3.2.1",
     "node-id3": "^0.2.3"
   }
 }
