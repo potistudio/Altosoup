@@ -73,6 +73,13 @@ function readMusicAll() {
 	})
 }
 
+function addMusic (_path) {
+	readAudioTags (_path)
+	let name = _tags["artist"] + " - " + _tags["title"];
+	mainWindow.webContents.send ("add-music", name, _path);
+	console.log
+}
+
 /**
  * Read the Artist, Title & Album from the Path
  * @param { string } The Path of the Audio File
@@ -83,6 +90,8 @@ function readAudioTags (_path) {
 		NodeID3.read (_path, (_error, _tags) => {
 			if (_error) throw _error;
 
+			mainWindow.webContents.send ("add-music", _tags["artist"] + " - " + _tags["title"], _path);
+
 			_resolve ({
 				artist: _tags["artist"] || "Unknown",
 				title: _tags["title"] || "Untitled",
@@ -92,9 +101,26 @@ function readAudioTags (_path) {
 	});
 }
 
+/**
+ * @param { string } A Path of the Audio File
+ * @return { string } Base64 Data of the Audio
+ */
+function readAudioData (_path) {
+	return new Promise ((_resolve, _reject) => {
+		console.log (_path)
+		fsPromises.readFile (_path, { encoding: "base64" }).then (_data => {
+			_resolve ("data:audio/mpeg;base64," + _data);
+		});
+	});
+}
+
 /* Renderer Event */
 ipcMain.on ("minimize-window", () => mainWindow.hide());
 ipcMain.on ("close-window", () => mainWindow.close());
+
+ipcMain.handle ("get-music-data", async (_e, _path) => {
+	return await readAudioData (_path);
+});
 
 /* Application Event */
 app.once ("ready", () => init());

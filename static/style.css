@@ -7,9 +7,13 @@
 
 :root {
 	--white: #FCFCFC;
+	--gray: #CCCCCC;
 	--black: #222222;
-	--primary: #7476FB;
-	--secondary: #48E4DA;
+	--maincolor: #7476FB;
+	--subcolor: #48E4DA;
+
+	--windowframeheight: 36px;
+	--playerheight: 80px;
 }
 
 
@@ -19,22 +23,13 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 36px;
+	height: var(--windowframeheight);
 	border-radius: 4px 4px 0 0;
 	border: solid #CCCCCC;
 	border-width: 1px 1px 0 1px;
+	border-bottom: solid 1px var(--maincolor);
 	background-color: #FCFCFC;
 	overflow: hidden;
-}
-
-.Window-Frame::after {
-	content: "";
-	position: absolute;
-	bottom: 1px;
-	left: 0;
-	width: 100%;
-	height: 1px;
-	background-color: #7476FB;
 }
 
 
@@ -107,7 +102,7 @@
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: calc(100% - 36px);
+	height: calc(100% - var(--windowframeheight));
 	border-radius: 0 0 4px 4px;
 	border: solid #CCCCCC;
 	border-width: 0 1px 1px 1px;
@@ -124,7 +119,6 @@
 	height: 40px;
 	border-radius: 20px;
 	background-color: var(--white);
-	box-shadow: 0 0 16px #CCCCCC;
 }
 
 .Loading-Music::before {
@@ -135,7 +129,7 @@
 	width: 100%;
 	height: 100%;
 	border-radius: inherit;
-	background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
+	background: linear-gradient(to right, var(--maincolor) 0%, var(--subcolor) 100%);
 	z-index: 1;
 }
 
@@ -159,4 +153,121 @@
 	font-size: 16px;
 	font-weight: bold;
 	color: #222222;
+}
+
+
+.Music-List {
+	position: absolute;
+	top: 80px;
+	left: 16px;
+	width: calc(100% - 32px);
+	height: calc(100% - var(--playerheight) - 80px);
+	overflow: auto;
+}
+
+
+.Music-List .List-Element {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 40px;
+	border-bottom: solid 1px var(--gray);
+}
+
+.Music-List .List-Element::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 40%;
+	height: 2px;
+	background: linear-gradient(to right, var(--maincolor) 0%, var(--subcolor) 80%, #FCFCFC00 100%);
+	transform: scale(0, 1);
+	transform-origin: left;
+	transition: all 0.2s 0s ease-out;
+}
+
+.Music-List .List-Element:hover::after {
+	transform: scale(1, 1);
+}
+
+.Music-List .List-Element span {
+	position: absolute;
+	top: 6px;
+	left: 16px;
+	font-size: 18px;
+	z-index: 1;
+}
+
+
+.Player {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: var(--playerheight);
+	border-top: solid 1px var(--maincolor);
+	background-color: var(--white);
+}
+
+.Player .Play-Button {
+	position: absolute;
+	top: 18px;
+	left: calc(50% - 22px);
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	box-shadow: 0 0 16px #CCCCCC;
+	transition: all 0.14s 0s ease;
+	cursor: pointer;
+}
+
+.Player .Play-Button:hover {
+	margin-top: -2px;
+	margin-left: -2px;
+	width: 48px;
+	height: 48px;
+	box-shadow: 0 0 16px #AAAAAA;
+}
+
+.Player .Play-Button:active {
+	margin-top: 0;
+	margin-left: 0;
+	width: 44px;
+	height: 44px;
+}
+
+.Player .Play-Button::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+	background: linear-gradient(to right, var(--maincolor) 0%, var(--subcolor) 100%);
+	z-index: 1;
+}
+
+.Player .Play-Button::after {
+	content: "";
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: calc(100% - 4px);
+	height: calc(100% - 4px);
+	border-radius: inherit;
+	background-color: var(--white);
+	z-index: 2;
+}
+
+.Player .Play-Button img {
+	position: absolute;
+	top: 20%;
+	left: 20%;
+	width: 60%;
+	height: 60%;
+	filter: brightness(20%);
+	z-index: 3;
 }
