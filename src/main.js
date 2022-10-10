@@ -1,14 +1,19 @@
 /* Import the Node Modules */
 const path = require ("node:path");
+const fsPromises = require ("node:fs/promises");
 
 /* Import the External Modules */
 const { app, BrowserWindow, Tray, Menu, ipcMain } = require ("electron");
+const NodeID3 = require ("node-id3");
+
+const musicDirectory = "D:/Musics";
 
 let mainWindow = null;
 let mainTray = null;
 
 // Initialize the Application
 function init() {
+	readMusicAll();
 	createWindow();
 	createTray();
 }
@@ -48,6 +53,43 @@ function createTray() {
 	mainTray.setContextMenu (contextMenu);
 
 	mainTray.on ("click", () => mainWindow.show());
+}
+
+// Read the Directory Containing the Music
+function readMusicAll() {
+	let promises = [];
+
+	fsPromises.readdir (musicDirectory).then (async _files => {
+		for (const file of _files) {
+			if (path.extname(file) == ".mp3")
+				promises.push (readAudioTags(path.join(musicDirectory, file)));
+		}
+
+		await Promise.all (promises);
+		console.log ("All Done! " + promises.length);
+
+		// Event
+		mainWindow.webContents.send ("music-all-loaded");
+	})
+}
+
+/**
+ * Read the Artist, Title & Album from the Path
+ * @param { string } The Path of the Audio File
+ * @return { promise({ artist=string, title=string, ?album=string }) }
+ */
+function readAudioTags (_path) {
+	return new Promise ((_resolve, _reject) => {
+		NodeID3.read (_path, (_error, _tags) => {
+			if (_error) throw _error;
+
+			_resolve ({
+				artist: _tags["artist"] || "Unknown",
+				title: _tags["title"] || "Untitled",
+				album: _tags["album"] || null
+			});
+		});
+	});
 }
 
 /* Renderer Event */
