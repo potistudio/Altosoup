@@ -8,7 +8,17 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder --win --x64"
+  },
+  "build": {
+    "appId": "com.potistudio.altosoup",
+    "productName": "Altosoup",
+    "files": [
+      "./resources/",
+      "./src/",
+      "./static/"
+    ]
   },
   "repository": {
     "type": "git",
@@ -28,6 +38,7 @@
   },
   "dependencies": {
     "animejs": "^3.2.1",
+    "electron-builder": "^23.6.0",
     "node-id3": "^0.2.3"
   }
 }
