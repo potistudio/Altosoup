@@ -1,4 +1,5 @@
 /* Import the Node Modules */
+const os = require ("node:os");
 const path = require ("node:path");
 const fsPromises = require ("node:fs/promises");
 
@@ -6,7 +7,11 @@ const fsPromises = require ("node:fs/promises");
 const { app, BrowserWindow, Tray, Menu, ipcMain } = require ("electron");
 const NodeID3 = require ("node-id3");
 
-const musicDirectory = "D:/Musics";
+const Music = require ("./class/music.js");
+
+const musicDirectory = path.join (os.homedir(), "Music");
+
+let musicList = [];
 
 let mainWindow = null;
 let mainTray = null;
@@ -70,15 +75,15 @@ function readMusicAll() {
 
 		// Event
 		mainWindow.webContents.send ("music-all-loaded");
-	})
+	});
 }
 
 function addMusic (_path) {
 	readAudioTags (_path)
 	let name = _tags["artist"] + " - " + _tags["title"];
 	mainWindow.webContents.send ("add-music", name, _path);
-	console.log
 }
+
 
 /**
  * Read the Artist, Title & Album from the Path
@@ -90,16 +95,20 @@ function readAudioTags (_path) {
 		NodeID3.read (_path, (_error, _tags) => {
 			if (_error) throw _error;
 
-			mainWindow.webContents.send ("add-music", _tags["artist"] + " - " + _tags["title"], _path);
-
-			_resolve ({
+			const tags = {
 				artist: _tags["artist"] || "Unknown",
 				title: _tags["title"] || "Untitled",
 				album: _tags["album"] || null
-			});
+			}
+
+			mainWindow.webContents.send ("add-music", tags["artist"] + " - " + tags["title"], _path);
+			musicList.push (new Music(_path, tags["artist"], tags["title"], tags["album"]));
+
+			_resolve (tags);
 		});
 	});
 }
+
 
 /**
  * @param { string } A Path of the Audio File
@@ -107,20 +116,23 @@ function readAudioTags (_path) {
  */
 function readAudioData (_path) {
 	return new Promise ((_resolve, _reject) => {
-		console.log (_path)
 		fsPromises.readFile (_path, { encoding: "base64" }).then (_data => {
 			_resolve ("data:audio/mpeg;base64," + _data);
 		});
 	});
 }
 
+
 /* Renderer Event */
 ipcMain.on ("minimize-window", () => mainWindow.hide());
 ipcMain.on ("close-window", () => mainWindow.close());
 
-ipcMain.handle ("get-music-data", async (_e, _path) => {
+ipcMain.handle ("get-path", (_e, _index) => { return musicList[_index].path; });
+
+ipcMain.handle ("get-audio-data", async (_e, _path) => {
 	return await readAudioData (_path);
 });
+
 
 /* Application Event */
 app.once ("ready", () => init());
