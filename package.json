@@ -2,7 +2,7 @@
   "name": "altosoup",
   "version": "1.0.0",
   "description": "Cross-Platform Music Player that Made with Electron",
-  "main": "./src/js/main.js",
+  "main": "./src/js/main/main.js",
   "scripts": {
     "watch:sass": "sass ./src/sass/style.scss ./static/style.css --no-source-map --style expanded --watch",
     "watch:ts": "tsc -w",
