@@ -7,14 +7,62 @@
 
 body .Frame {
   position: absolute;
+  display: flex;
+  flex-direction: row-reverse;
   top: 0;
   left: 0;
   width: 100%;
   height: 24px;
-  border-radius: 4px 4px 0 0;
-  border: solid rgba(0, 0, 0, 0.2509803922);
+  border-radius: 8px 8px 0 0;
+  border: solid rgba(0, 0, 0, 0.1254901961);
   border-width: 1px 1px 0 1px;
   background-color: #F0F0F0;
+}
+body .Frame .Minimize-Button, body .Frame .Maximize-Button, body .Frame .Close-Button {
+  position: relative;
+  margin-top: -2px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+body .Frame .Minimize-Button::before, body .Frame .Maximize-Button::before, body .Frame .Close-Button::before {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  top: 6px;
+  left: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: solid 1px rgba(0, 0, 0, 0.1254901961);
+  transition: all 0.1s 0s ease;
+}
+body .Frame .Close-Button {
+  margin-right: -1px;
+}
+body .Frame .Close-Button::before {
+  background-color: #F04010;
+}
+body .Frame .Close-Button:hover::before {
+  box-shadow: 0 0 8px #F04010;
+}
+body .Frame .Maximize-Button {
+  margin-right: -4px;
+}
+body .Frame .Maximize-Button::before {
+  background-color: #10F040;
+}
+body .Frame .Maximize-Button:hover::before {
+  box-shadow: 0 0 8px #10F040;
+}
+body .Frame .Minimize-Button {
+  margin-right: -2px;
+}
+body .Frame .Minimize-Button::before {
+  background-color: #F0F010;
+}
+body .Frame .Minimize-Button:hover::before {
+  background-color: #F0F010;
 }
 
 body .Content {
@@ -23,8 +71,8 @@ body .Content {
   left: 0;
   width: 100%;
   height: calc(100% - 24px);
-  border-radius: 0 0 4px 4px;
-  border: solid rgba(0, 0, 0, 0.2509803922);
+  border-radius: 0 0 8px 8px;
+  border: solid rgba(0, 0, 0, 0.1254901961);
   border-width: 0 1px 1px 1px;
   background-color: #F0F0F0;
 }
