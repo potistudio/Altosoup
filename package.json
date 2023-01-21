@@ -1,0 +1,35 @@
+{
+  "name": "altosoup",
+  "version": "1.0.0",
+  "description": "Cross-Platform Music Player that Made with Electron",
+  "main": "./src/js/main.js",
+  "scripts": {
+    "watch:sass": "sass ./src/sass/style.scss ./static/style.css --no-source-map --style expanded --watch",
+    "watch:ts": "tsc -w",
+    "start": "electronmon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/potistudio/Altosoup.git"
+  },
+  "keywords": [
+    "electron",
+    "typescript",
+    "sass"
+  ],
+  "author": "POTI-Studio",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/potistudio/Altosoup/issues"
+  },
+  "homepage": "https://github.com/potistudio/Altosoup#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "electron": "^22.0.3",
+    "electronmon": "^2.0.2",
+    "eslint": "^8.32.0",
+    "sass": "^1.57.1",
+    "typescript": "^4.9.4"
+  }
+}
